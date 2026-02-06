@@ -22,10 +22,14 @@ type PokemonListLayoutProps = {
   items: PokemonListItem[];
   query: string;
   isOffline: boolean;
-  recentSearches: string[];
-  recentViews: string[];
+  recentSearches?: string[];
+  recentViews?: string[];
   types: string[];
   selectedType: string;
+  showHistory?: boolean;
+  showFilters?: boolean;
+  showSearch?: boolean;
+  autoFocusSearch?: boolean;
   onChangeQuery: (value: string) => void;
   onSelectType: (value: string) => void;
   onSelectRecent: (name: string) => void;
@@ -41,10 +45,14 @@ export function PokemonListLayout({
   items,
   query,
   isOffline,
-  recentSearches,
-  recentViews,
+  recentSearches = [],
+  recentViews = [],
   types,
   selectedType,
+  showHistory = true,
+  showFilters = true,
+  showSearch = true,
+  autoFocusSearch = false,
   onChangeQuery,
   onSelectType,
   onSelectRecent,
@@ -66,16 +74,19 @@ export function PokemonListLayout({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pokedex</Text>
-      <TextInput
-        style={styles.search}
-        placeholder="Buscar por nombre"
-        value={query}
-        onChangeText={onChangeQuery}
-      />
+      {showSearch ? (
+        <TextInput
+          style={styles.search}
+          placeholder="Buscar por nombre"
+          value={query}
+          onChangeText={onChangeQuery}
+          autoFocus={autoFocusSearch}
+        />
+      ) : null}
       {isOffline ? (
         <Text style={styles.offlineBanner}>Sin conexion. Mostrando cache.</Text>
       ) : null}
-      {recentSearches.length > 0 ? (
+      {showHistory && recentSearches.length > 0 ? (
         <View style={styles.historySection}>
           <Text style={styles.historyTitle}>Busquedas recientes</Text>
           <View style={styles.historyRow}>
@@ -90,7 +101,7 @@ export function PokemonListLayout({
           </View>
         </View>
       ) : null}
-      {recentViews.length > 0 ? (
+      {showHistory && recentViews.length > 0 ? (
         <View style={styles.historySection}>
           <Text style={styles.historyTitle}>Vistos recientemente</Text>
           <View style={styles.historyRow}>
@@ -105,34 +116,36 @@ export function PokemonListLayout({
           </View>
         </View>
       ) : null}
-      <View style={styles.filtersContainer}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.filtersRow}>
-          {types.map((type, index) => {
-            const isActive = type === selectedType;
-            return (
-              <Pressable
-                key={type}
-                onPress={() => onSelectType(type)}
-                style={[
-                  styles.filterChip,
-                  isActive && styles.filterChipActive,
-                  index < types.length - 1 && styles.filterChipSpacing,
-                ]}>
-                <Text
+      {showFilters ? (
+        <View style={styles.filtersContainer}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filtersRow}>
+            {types.map((type, index) => {
+              const isActive = type === selectedType;
+              return (
+                <Pressable
+                  key={type}
+                  onPress={() => onSelectType(type)}
                   style={[
-                    styles.filterChipText,
-                    isActive && styles.filterChipTextActive,
+                    styles.filterChip,
+                    isActive && styles.filterChipActive,
+                    index < types.length - 1 && styles.filterChipSpacing,
                   ]}>
-                  {type === 'all' ? 'Todos' : type}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-      </View>
+                  <Text
+                    style={[
+                      styles.filterChipText,
+                      isActive && styles.filterChipTextActive,
+                    ]}>
+                    {type === 'all' ? 'Todos' : type}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
+      ) : null}
       <FlatList
         key={`grid-${columns}`}
         data={items}

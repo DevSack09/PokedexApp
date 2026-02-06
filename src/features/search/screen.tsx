@@ -1,18 +1,18 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList, TabParamList} from '../../app/AppNavigator';
-import {PokemonListLayout} from './Layout';
-import {usePokemonListController} from './useFeatureController';
+import {SearchLayout} from './Layout';
+import {useSearchController} from './useFeatureController';
 
-type HomeNavigation = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, 'Home'>,
+type SearchNavigation = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'Search'>,
   NativeStackNavigationProp<RootStackParamList>
 >;
 
-export function PokemonListScreen(): React.JSX.Element {
-  const navigation = useNavigation<HomeNavigation>();
+export function SearchScreen(): React.JSX.Element {
+  const navigation = useNavigation<SearchNavigation>();
   const {
     items,
     query,
@@ -23,12 +23,15 @@ export function PokemonListScreen(): React.JSX.Element {
     selectedType,
     onChangeQuery,
     onSelectType,
-    onEndReached,
     isLoading,
     isError,
-    isFetchingNextPage,
-    hasNextPage,
-  } = usePokemonListController();
+  } = useSearchController();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Busqueda',
+    });
+  }, [navigation]);
 
   const onSelectPokemon = (name: string) => {
     navigation.navigate('PokemonDetail', {name});
@@ -39,7 +42,7 @@ export function PokemonListScreen(): React.JSX.Element {
   };
 
   return (
-    <PokemonListLayout
+    <SearchLayout
       items={items}
       query={query}
       isOffline={isOffline}
@@ -47,18 +50,12 @@ export function PokemonListScreen(): React.JSX.Element {
       recentViews={recentViews}
       types={types}
       selectedType={selectedType}
-      showHistory={false}
-      showFilters={false}
-      showSearch={false}
       onChangeQuery={onChangeQuery}
       onSelectType={onSelectType}
       onSelectRecent={onSelectRecent}
       onSelectPokemon={onSelectPokemon}
-      onEndReached={onEndReached}
       isLoading={isLoading}
       isError={isError}
-      isFetchingNextPage={isFetchingNextPage}
-      hasNextPage={hasNextPage}
     />
   );
 }
