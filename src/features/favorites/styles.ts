@@ -5,13 +5,14 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundAlt,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '700',
+    fontSize: 24,
+    fontWeight: '800',
     marginBottom: 12,
     color: colors.textPrimary,
+    letterSpacing: 0.3,
   },
   listContent: {
     paddingVertical: 16,

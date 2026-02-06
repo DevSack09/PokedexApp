@@ -94,6 +94,7 @@ export function PokemonListLayout({
           <TextInput
             style={[styles.search, showSearchIcon && styles.searchWithIcon]}
             placeholder="Buscar por nombre"
+            placeholderTextColor={styles.searchIcon.color}
             value={query}
             onChangeText={onChangeQuery}
             autoFocus={autoFocusSearch}

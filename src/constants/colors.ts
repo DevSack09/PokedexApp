@@ -1,10 +1,13 @@
 export const colors = {
   background: '#f8fafc',
+  backgroundAlt: '#eef2f7',
   surface: '#ffffff',
+  surfaceMuted: '#f1f5f9',
   textPrimary: '#0f172a',
   textSecondary: '#475569',
   border: '#e2e8f0',
   accent: '#f97316',
+  shadow: 'rgba(15, 23, 42, 0.12)',
   type: {
     normal: '#a8a77a',
     fire: '#ee8130',

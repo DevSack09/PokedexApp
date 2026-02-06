@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,12 +8,13 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
+    color: colors.textPrimary,
   },
   subtitle: {
     marginTop: 6,
     fontSize: 13,
-    color: '#64748b',
+    color: colors.textSecondary,
     textAlign: 'center',
   },
 });
