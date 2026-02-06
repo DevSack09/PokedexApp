@@ -7,9 +7,9 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import {EmptyState} from '../../components/EmptyState';
-import {PokemonCard} from '../../components/PokemonCard';
-import {breakpoints, grid} from '../../constants/dimensions';
+import {EmptyState} from '../../shared/components/EmptyState';
+import {PokemonCard} from '../../shared/components/PokemonCard';
+import {breakpoints, grid} from '../../shared/utils/dimensions';
 import {styles} from './styles';
 
 export type FavoritesLayoutItem = {

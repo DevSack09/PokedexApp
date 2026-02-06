@@ -3,7 +3,7 @@ import {endpoints} from '../../core/api/endpoints';
 import {
   PokemonAbilityResponse,
   PokemonDetailResponse,
-} from '../../types/pokemon';
+} from '../../shared/types/pokemon';
 
 export async function fetchPokemonByName(name: string) {
   const response = await apiClient.get(endpoints.pokemonByName(name));

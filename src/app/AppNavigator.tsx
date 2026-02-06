@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet} from 'react-native';
+import {Pressable, PressableProps, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -7,7 +7,7 @@ import {PokemonListScreen} from '../features/pokemon-list';
 import {PokemonDetailScreen} from '../features/pokemon-detail';
 import {FavoritesScreen} from '../features/favorites';
 import {SearchScreen} from '../features/search/screen';
-import {colors} from '../constants/colors';
+import {colors} from '../shared/utils/colors';
 
 export type RootStackParamList = {
   MainTabs: undefined;
@@ -24,7 +24,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
 
 type TabButtonProps = {
-  onPress?: () => void;
+  onPress?: PressableProps['onPress'];
   children: React.ReactNode;
   accessibilityState?: {selected?: boolean};
 };

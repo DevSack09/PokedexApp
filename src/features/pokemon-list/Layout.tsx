@@ -9,8 +9,8 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import {PokemonCard} from '../../components/PokemonCard';
-import {breakpoints, grid} from '../../constants/dimensions';
+import {PokemonCard} from '../../shared/components/PokemonCard';
+import {breakpoints, grid} from '../../shared/utils/dimensions';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {styles} from './styles';
 

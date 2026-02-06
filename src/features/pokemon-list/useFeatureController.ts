@@ -1,9 +1,9 @@
 import {useEffect, useMemo, useState} from 'react';
 import {InfiniteData, useInfiniteQuery, useQuery} from '@tanstack/react-query';
-import {apiConfig, queryKeys} from '../../constants/api';
-import {pokemonTypes, PokemonType} from '../../constants/pokemonTypes';
-import {useDebounce} from '../../hooks/useDebounce';
-import {useOfflineStatus} from '../../hooks/useOfflineStatus';
+import {apiConfig, queryKeys} from '../../shared/utils/api';
+import {pokemonTypes, PokemonType} from '../../shared/utils/pokemonTypes';
+import {useDebounce} from '../../shared/hooks/useDebounce';
+import {useOfflineStatus} from '../../shared/hooks/useOfflineStatus';
 import {useSearchHistoryStore} from '../../store/searchHistoryStore';
 import {useViewHistoryStore} from '../../store/viewHistoryStore';
 import {
@@ -12,7 +12,7 @@ import {
   fetchPokemonList,
 } from './services';
 import {PokemonListItem} from './Layout';
-import {PokemonListResponse, PokemonTypeResponse} from '../../types/pokemon';
+import {PokemonListResponse, PokemonTypeResponse} from '../../shared/types/pokemon';
 
 function getPokemonIdFromUrl(url: string): number | null {
   const match = url.match(/\/pokemon\/(\d+)\/?$/);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiConfig} from '../../constants/api';
+import {apiConfig} from '../../shared/utils/api';
 
 export const apiClient = axios.create({
   baseURL: apiConfig.baseUrl,

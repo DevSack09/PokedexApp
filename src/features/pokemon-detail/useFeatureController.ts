@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
-import {queryKeys} from '../../constants/api';
+import {queryKeys} from '../../shared/utils/api';
 import {fetchAbilityByName, fetchPokemonByName} from './services';
-import {useOfflineStatus} from '../../hooks/useOfflineStatus';
+import {useOfflineStatus} from '../../shared/hooks/useOfflineStatus';
 import {useViewHistoryStore} from '../../store/viewHistoryStore';
 
 export function usePokemonDetailController(name: string) {

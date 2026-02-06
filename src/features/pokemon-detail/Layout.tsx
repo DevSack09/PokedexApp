@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, Pressable, ScrollView, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {colors} from '../../constants/colors';
+import {colors} from '../../shared/utils/colors';
 import {styles} from './styles';
 
 export type PokemonDetailLayoutProps = {
