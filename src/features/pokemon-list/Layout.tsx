@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, FlatList, Text, TextInput, View} from 'react-native';
 import {PokemonCard} from '../../components/PokemonCard';
 import {styles} from './styles';
 
@@ -14,6 +14,9 @@ type PokemonListLayoutProps = {
   onChangeQuery: (value: string) => void;
   onEndReached: () => void;
   isLoading: boolean;
+  isError: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
 };
 
 export function PokemonListLayout({
@@ -22,7 +25,11 @@ export function PokemonListLayout({
   onChangeQuery,
   onEndReached,
   isLoading,
+  isError,
+  isFetchingNextPage,
+  hasNextPage,
 }: PokemonListLayoutProps): React.JSX.Element {
+  const showEmpty = !isLoading && items.length === 0;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Pokedex</Text>
@@ -40,7 +47,18 @@ export function PokemonListLayout({
         contentContainerStyle={styles.listContent}
         onEndReached={onEndReached}
         ListEmptyComponent={
-          isLoading ? <Text>Cargando...</Text> : <Text>Sin resultados.</Text>
+          isLoading ? (
+            <ActivityIndicator size="small" />
+          ) : isError ? (
+            <Text style={styles.helper}>Ocurrio un error.</Text>
+          ) : showEmpty ? (
+            <Text style={styles.helper}>Sin resultados.</Text>
+          ) : null
+        }
+        ListFooterComponent={
+          isFetchingNextPage && hasNextPage ? (
+            <ActivityIndicator size="small" />
+          ) : null
         }
         renderItem={({item}) => (
           <View style={styles.card}>

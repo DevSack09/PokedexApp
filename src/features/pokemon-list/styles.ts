@@ -1,23 +1,26 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../constants/colors';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f8fafc',
+    backgroundColor: colors.background,
   },
   title: {
     fontSize: 22,
     fontWeight: '700',
     marginBottom: 12,
+    color: colors.textPrimary,
   },
   search: {
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: colors.border,
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
+    color: colors.textPrimary,
   },
   listContent: {
     paddingVertical: 16,
@@ -28,5 +31,10 @@ export const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+  },
+  helper: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: colors.textSecondary,
   },
 });

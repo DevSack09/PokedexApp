@@ -1,9 +1,10 @@
 import {useQuery} from '@tanstack/react-query';
+import {queryKeys} from '../../constants/api';
 import {fetchPokemonByName} from './services';
 
 export function usePokemonDetailController(name: string) {
   const {data, isLoading} = useQuery({
-    queryKey: ['pokemon-detail', name],
+    queryKey: [queryKeys.pokemonDetail, name],
     queryFn: () => fetchPokemonByName(name),
     enabled: Boolean(name),
   });

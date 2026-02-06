@@ -3,8 +3,16 @@ import {PokemonListLayout} from './Layout';
 import {usePokemonListController} from './useFeatureController';
 
 export function PokemonListScreen(): React.JSX.Element {
-  const {items, query, onChangeQuery, onEndReached, isLoading} =
-    usePokemonListController();
+  const {
+    items,
+    query,
+    onChangeQuery,
+    onEndReached,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+  } = usePokemonListController();
 
   return (
     <PokemonListLayout
@@ -13,6 +21,9 @@ export function PokemonListScreen(): React.JSX.Element {
       onChangeQuery={onChangeQuery}
       onEndReached={onEndReached}
       isLoading={isLoading}
+      isError={isError}
+      isFetchingNextPage={isFetchingNextPage}
+      hasNextPage={hasNextPage}
     />
   );
 }
