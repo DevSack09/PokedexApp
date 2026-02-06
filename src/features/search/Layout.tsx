@@ -22,7 +22,7 @@ export function SearchLayout({
   query,
   isOffline,
   recentSearches,
-  recentViews,
+  recentViews: _recentViews,
   types,
   selectedType,
   onChangeQuery,
