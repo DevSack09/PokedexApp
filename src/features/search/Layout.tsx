@@ -38,7 +38,7 @@ export function SearchLayout({
       query={query}
       isOffline={isOffline}
       recentSearches={recentSearches}
-      recentViews={recentViews}
+      recentViews={[]}
       types={types}
       selectedType={selectedType}
       showHistory
