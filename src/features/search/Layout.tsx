@@ -44,6 +44,7 @@ export function SearchLayout({
       showHistory
       showFilters
       showSearch
+      showSearchIcon
       autoFocusSearch
       onChangeQuery={onChangeQuery}
       onSelectType={onSelectType}

@@ -13,14 +13,25 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     color: colors.textPrimary,
   },
-  search: {
+  searchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
     backgroundColor: colors.surface,
+    paddingHorizontal: 12,
+  },
+  search: {
+    flex: 1,
+    paddingVertical: 8,
     color: colors.textPrimary,
+  },
+  searchWithIcon: {
+    paddingLeft: 8,
+  },
+  searchIcon: {
+    color: colors.textSecondary,
   },
   offlineBanner: {
     marginTop: 8,

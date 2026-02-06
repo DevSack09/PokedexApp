@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {PokemonCard} from '../../components/PokemonCard';
 import {breakpoints, grid} from '../../constants/dimensions';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {styles} from './styles';
 
 export type PokemonListItem = {
@@ -29,6 +30,7 @@ type PokemonListLayoutProps = {
   showHistory?: boolean;
   showFilters?: boolean;
   showSearch?: boolean;
+  showSearchIcon?: boolean;
   autoFocusSearch?: boolean;
   onChangeQuery: (value: string) => void;
   onSelectType: (value: string) => void;
@@ -52,6 +54,7 @@ export function PokemonListLayout({
   showHistory = true,
   showFilters = true,
   showSearch = true,
+  showSearchIcon = false,
   autoFocusSearch = false,
   onChangeQuery,
   onSelectType,
@@ -75,13 +78,23 @@ export function PokemonListLayout({
     <View style={styles.container}>
       <Text style={styles.title}>Pokedex</Text>
       {showSearch ? (
-        <TextInput
-          style={styles.search}
-          placeholder="Buscar por nombre"
-          value={query}
-          onChangeText={onChangeQuery}
-          autoFocus={autoFocusSearch}
-        />
+        <View style={styles.searchRow}>
+          {showSearchIcon ? (
+            <MaterialIcons
+              name="search"
+              size={18}
+              color={styles.searchIcon.color}
+              style={styles.searchIcon}
+            />
+          ) : null}
+          <TextInput
+            style={[styles.search, showSearchIcon && styles.searchWithIcon]}
+            placeholder="Buscar por nombre"
+            value={query}
+            onChangeText={onChangeQuery}
+            autoFocus={autoFocusSearch}
+          />
+        </View>
       ) : null}
       {isOffline ? (
         <Text style={styles.offlineBanner}>Sin conexion. Mostrando cache.</Text>
