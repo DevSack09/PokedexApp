@@ -1,6 +1,24 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is a React Native project.
 
 # Getting Started
+
+## Requirements
+
+- Node 18 LTS
+- npm 9+
+- React Native 0.74.5
+- Java JDK 17
+- Android Studio + SDK (Platform Tools, Emulator)
+
+## Windows setup (one-time)
+
+This script configures `JAVA_HOME`, `ANDROID_HOME`, `ANDROID_SDK_ROOT` and updates `PATH`.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\setup-windows.ps1
+```
+
+Restart your terminal after running the script.
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
@@ -25,21 +43,21 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
 ### For iOS
 
 ```bash
-# using npm
 npm run ios
+```
 
-# OR using Yarn
-yarn ios
+## JAVA_HOME reference
+
+Set `JAVA_HOME` to your JDK 17 folder, for example:
+
+```
+C:\Program Files\Eclipse Adoptium\jdk-17.x.x-hotspot
 ```
 
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
