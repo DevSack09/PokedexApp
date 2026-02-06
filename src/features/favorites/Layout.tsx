@@ -45,6 +45,11 @@ export function FavoritesLayout({
         numColumns={columns}
         columnWrapperStyle={columns > 1 ? styles.row : undefined}
         contentContainerStyle={styles.listContent}
+        initialNumToRender={8}
+        maxToRenderPerBatch={8}
+        windowSize={5}
+        updateCellsBatchingPeriod={50}
+        removeClippedSubviews
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: true},
