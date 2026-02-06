@@ -40,7 +40,7 @@ export function FavoritesLayout({
       const rowOffset = rowIndex * ROW_HEIGHT;
       const opacity = scrollY.interpolate({
         inputRange: [rowOffset - height, rowOffset - height * 0.6, rowOffset],
-        outputRange: [0.15, 0.9, 1],
+        outputRange: [0.85, 0.95, 1],
         extrapolate: 'clamp',
       });
       const translateY = scrollY.interpolate({
