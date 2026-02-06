@@ -1,97 +1,195 @@
-This is a React Native project.
+Proyecto React Native para la PokeAPI.
 
-# Getting Started
+# Pokedex App
 
-## Requirements
+## Resumen
 
+Aplicacion mobile que consume la PokeAPI con enfoque en arquitectura modular, offline-first, rendimiento y UX.
+
+## Versiones usadas
+
+- Plataforma: Windows
+- Node: 18 LTS
+- npm: 9+
+- React Native: 0.74.5
+- React: 18.2.0
+- Java: JDK 17 (Temurin/Zulu recomendado)
+
+## Stack tecnico
+
+- React Native 0.74.5 + TypeScript
+- Estado global: Zustand
+- Data fetching/caching: React Query
+- Navegacion: React Navigation (stack + bottom tabs)
+- Persistencia: AsyncStorage
+- Imagenes: react-native-fast-image
+- Conectividad: NetInfo
+
+## Endpoints usados
+
+- https://pokeapi.co/api/v2/pokemon?offset=0&limit=20
+- https://pokeapi.co/api/v2/pokemon/{name}
+- https://pokeapi.co/api/v2/type/{name}
+- https://pokeapi.co/api/v2/ability/{name}
+
+## Decisiones tecnicas
+
+- Arquitectura modular por feature en `src/features`, separando `Layout`, `styles`, `services` y `useFeatureController` para aislar UI, logica y servicios.
+- Reutilizables en `src/shared` (components, hooks, utils, types) para evitar duplicacion y mantener consistencia.
+- Estado global con Zustand para favoritos e historiales, por su simplicidad y rendimiento.
+- Data fetching y cache con React Query, con persistencia a AsyncStorage para offline-first real.
+- Offline-first con NetInfo para detectar conectividad y mostrar cache cuando no hay red.
+- Navegacion con React Navigation (stack + bottom tabs) para separar flujos principales y detalle.
+- Imagenes optimizadas con react-native-fast-image para cache y mejor rendimiento en listas.
+- UI responsive con breakpoints y grid para soportar mobile, tablet y desktop.
+
+## Arquitectura
+
+```
+src/
+   app/
+   core/
+   features/
+      pokemon-list/
+      pokemon-detail/
+      favorites/
+      search/
+   shared/
+      components/
+      hooks/
+      utils/
+      types/
+   store/
+```
+
+Cada feature incluye: `index.ts`, `Layout.tsx`, `styles.ts`, `services.ts`, `useFeatureController.ts`.
+
+## Offline-first y cache
+
+- React Query con persistencia en AsyncStorage.
+- Historial offline de busquedas y vistas.
+- Pantallas muestran datos ya consultados sin conexion.
+
+## Rendimiento
+
+- Listas virtualizadas (`FlatList`) con paginacion.
+- Debounce en busqueda por nombre.
+- Imagenes cacheadas con `react-native-fast-image`.
+
+## Scripts utiles
+
+```bash
+npm run lint
+npm test
+```
+
+## Screenshots
+
+![Home](docs/screenshots/home.png)
+Home: listado paginado con cards y scroll suave.
+
+![Busqueda](docs/screenshots/busqueda.png)
+Busqueda: filtro por nombre y tipo, con historial visible.
+
+![Favoritos](docs/screenshots/favoritos.png)
+Favoritos: tarjetas guardadas con acceso rapido al detalle.
+
+![Detalle](docs/screenshots/detalle.png)
+Detalle: imagen, tipos, estadisticas y habilidades.
+
+# Empezar
+
+## Requisitos
 - Node 18 LTS
 - npm 9+
 - React Native 0.74.5
 - Java JDK 17
 - Android Studio + SDK (Platform Tools, Emulator)
+- Gradle Wrapper incluido en el repositorio
 
-## Windows setup (one-time)
+## Instalacion
 
-This script configures `JAVA_HOME`, `ANDROID_HOME`, `ANDROID_SDK_ROOT` and updates `PATH`.
+```bash
+npm install
+```
+
+## Configuracion en Windows (una sola vez)
+
+Este script existe para evitar errores comunes de entorno en Windows (Java no detectado, SDK no encontrado, comandos de Android sin ruta). Configura `JAVA_HOME`, `ANDROID_HOME`, `ANDROID_SDK_ROOT` y actualiza `PATH` para que Gradle y el emulador encuentren el JDK y el SDK.
+
+Ruta del script:
+
+```
+scripts/setup-windows.ps1
+```
+
+Pasos recomendados:
+
+1. Abre PowerShell como administrador.
+2. Ve a la raiz del proyecto.
+3. Ejecuta el script.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\setup-windows.ps1
 ```
 
-Restart your terminal after running the script.
+Reinicia la terminal despues de ejecutar el script para que el `PATH` actualizado se aplique.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+>**Nota**: Asegurate de completar la guia de [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) hasta el paso "Creating a new application" antes de continuar.
 
-## Step 1: Start the Metro Server
+## Paso 1: iniciar Metro
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+Para iniciar Metro desde la raiz del proyecto:
 
 ```bash
-# using npm
+# usando npm
 npm start
 
-# OR using Yarn
+# o usando Yarn
 yarn start
 ```
 
-## Step 2: Start your Application
+## Paso 2: ejecutar la app
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Deja Metro corriendo en su propia terminal. Abre otra terminal en la raiz del proyecto:
 
-### For Android
+### Android
 
 ```bash
 npm run android
 ```
 
-### For iOS
+### iOS
 
 ```bash
 npm run ios
 ```
 
-## JAVA_HOME reference
+## Referencia de JAVA_HOME
 
-Set `JAVA_HOME` to your JDK 17 folder, for example:
+Define `JAVA_HOME` apuntando a tu JDK 17, por ejemplo:
 
 ```
 C:\Program Files\Eclipse Adoptium\jdk-17.x.x-hotspot
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Si todo esta correctamente configurado, veras la app en el emulador de Android o el simulador de iOS.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Paso 3: modificar la app
 
-## Step 3: Modifying your App
+1. Abre `App.tsx` en tu editor y cambia algunas lineas.
+2. Para **Android**: presiona <kbd>R</kbd> dos veces o usa **"Reload"** en el **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> en Windows/Linux, o <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> en macOS).
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+   Para **iOS**: presiona <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> en el simulador.
 
 # Troubleshooting
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Si algo falla, revisa la guia de [Troubleshooting](https://reactnative.dev/docs/troubleshooting).
 
-# Learn More
+# Aprender mas
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [React Native Website](https://reactnative.dev)
+- [Getting Started](https://reactnative.dev/docs/environment-setup)
+- [Learn the Basics](https://reactnative.dev/docs/getting-started)
+- [Blog](https://reactnative.dev/blog)
+- [`@facebook/react-native`](https://github.com/facebook/react-native)
