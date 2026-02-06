@@ -1,5 +1,11 @@
 import React from 'react';
-import {FlatList, Pressable, Text, useWindowDimensions, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {PokemonCard} from '../../components/PokemonCard';
 import {breakpoints, grid} from '../../constants/dimensions';
 import {styles} from './styles';
