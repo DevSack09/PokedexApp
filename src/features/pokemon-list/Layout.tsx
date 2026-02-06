@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   ActivityIndicator,
-  FlatList,
+  Animated,
   Pressable,
   ScrollView,
   Text,
@@ -66,13 +66,15 @@ export function PokemonListLayout({
   isFetchingNextPage,
   hasNextPage,
 }: PokemonListLayoutProps): React.JSX.Element {
-  const {width} = useWindowDimensions();
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const {width, height} = useWindowDimensions();
   const columns =
     width >= breakpoints.desktop
       ? grid.columnsDesktop
       : width >= breakpoints.tablet
       ? grid.columnsTablet
       : grid.columnsMobile;
+  const ITEM_HEIGHT = 140;
   const showEmpty = !isLoading && items.length === 0;
   return (
     <View style={styles.container}>
@@ -159,13 +161,18 @@ export function PokemonListLayout({
           </ScrollView>
         </View>
       ) : null}
-      <FlatList
+      <Animated.FlatList
         key={`grid-${columns}`}
         data={items}
         keyExtractor={item => item.name}
         numColumns={columns}
         columnWrapperStyle={columns > 1 ? styles.row : undefined}
         contentContainerStyle={styles.listContent}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+        scrollEventThrottle={16}
         onEndReached={onEndReached}
         ListEmptyComponent={
           isLoading ? (
@@ -181,13 +188,36 @@ export function PokemonListLayout({
             <ActivityIndicator size="small" />
           ) : null
         }
-        renderItem={({item}) => (
-          <Pressable
-            style={styles.card}
-            onPress={() => onSelectPokemon(item.name)}>
-            <PokemonCard name={item.name} imageUrl={item.imageUrl} />
-          </Pressable>
-        )}
+        renderItem={({item, index}) => {
+          const rowIndex = Math.floor(index / columns);
+          const rowOffset = rowIndex * ITEM_HEIGHT;
+          const opacity = scrollY.interpolate({
+            inputRange: [
+              rowOffset - height,
+              rowOffset - height * 0.6,
+              rowOffset,
+            ],
+            outputRange: [0.15, 0.9, 1],
+            extrapolate: 'clamp',
+          });
+          const translateY = scrollY.interpolate({
+            inputRange: [
+              rowOffset - height,
+              rowOffset - height * 0.6,
+              rowOffset,
+            ],
+            outputRange: [10, 0, 0],
+            extrapolate: 'clamp',
+          });
+          return (
+            <Animated.View
+              style={[styles.card, {opacity, transform: [{translateY}]}]}>
+              <Pressable onPress={() => onSelectPokemon(item.name)}>
+                <PokemonCard name={item.name} imageUrl={item.imageUrl} />
+              </Pressable>
+            </Animated.View>
+          );
+        }}
       />
     </View>
   );
